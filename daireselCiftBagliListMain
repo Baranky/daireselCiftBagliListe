@@ -1,0 +1,83 @@
+package ciftdaireselliste;
+
+import java.util.Scanner;
+
+public class daireselciftMain {
+
+    public static void main(String[] args) {
+
+        ciftDaireselList d1 = new ciftDaireselList();
+
+        Scanner s1 = new Scanner(System.in);
+        int secim;
+        do {
+            System.out.println("**************** \n");
+            System.out.println("bir islem seciniz \n"
+                    + "1.BASAEKLEME\n"
+                    + "2.SONAEKLEME\n"
+                    + "3.ONCEKINE EKLEME\n"
+                    + "4SONRAKINE EKLEME\n"
+                    + "5.BASTAN SILME \n"
+                    + "6.SONDAN SILME\n"
+                    + "7.ISTENI1LEN ELEMANI SILME\n"
+                    + "8.ARAMA\n"
+                    + "9.LISTELEME\n");
+            secim = s1.nextInt();
+            switch (secim) {
+                case 1:
+                    System.out.println("eklenecek sayiyi giriniz");
+                    int sayi1 = s1.nextInt();
+                    d1.basaEkle(sayi1);
+                    break;
+                case 2:
+                    System.out.println("eklenecek sayiyi giriniz");
+                    int sayi2 = s1.nextInt();
+                    d1.sonaEkle(sayi2);
+                    break;
+                case 3:
+                    System.out.println("hangi sayıdan once ve eklenecek sayiyi giriniz");
+                    int sayi5 = s1.nextInt();
+                    int sayi6 = s1.nextInt();
+                    //d1.arama(sayi5);
+                    d1.oncekiEkle(d1.arama(sayi5), sayi6);
+                    break;
+                case 4:
+                    System.out.println("hangi sayıdan sonra ve eklenecek sayiyi giriniz");
+                    int sayi7 = s1.nextInt();
+                    int sayi8 = s1.nextInt();
+                    //d1.arama(sayi5);
+                    d1.sonrakiEkle(d1.arama(sayi7), sayi8);
+                    break;
+                case 5:
+                    d1.bastanSil();
+                    break;
+                case 6:
+                    d1.sondanSilme();
+                    break;
+                case 7:
+                    System.out.println("silmek istediginiz elemani giriniz");
+                    int sayi3 = s1.nextInt();
+                    d1.istenilenElemaniSilme(sayi3);
+                    break;
+                case 8:
+                    System.out.println("arama istediginiz elemani giriniz");
+                    int sayi4 = s1.nextInt();
+                    if (d1.arama(sayi4) != null) {
+                        System.out.println("ARANİLAN ELEMAN BULUNDU");
+                    } else {
+                        System.out.println("ARANİLAN ELEMAN BULUNAMADİ:");
+                    }
+                    break;
+                case 9:
+                    d1.listeleme();
+                    ;
+                    break;
+                case 10:
+                    System.out.println("CİKİS YAPİLDL");
+                    break;
+                default:
+                    System.out.println("HATALİ SECİM");
+            }
+        } while (secim != 10);
+    }
+}
