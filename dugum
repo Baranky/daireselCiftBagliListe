@@ -1,0 +1,12 @@
+package ciftdaireselliste;
+
+public class Dugum {
+
+    public int deger;
+    public Dugum onceki;
+    public Dugum sonraki;
+
+    Dugum(int deger) {
+        this.deger = deger;
+    }
+}
