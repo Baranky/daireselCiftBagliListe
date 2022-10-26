@@ -1,0 +1,158 @@
+package ciftdaireselliste;
+
+public class ciftDaireselList {
+
+    public Dugum ilk = null;
+    public Dugum son = null;
+
+    public void basaEkle(int deger) {
+        Dugum yeniDugum = new Dugum(deger);
+        yeniDugum.onceki = null;
+        yeniDugum.sonraki = null;
+        if (ilk == null) {
+            ilk = yeniDugum;
+            son = yeniDugum;
+        } else {
+            ilk.onceki = yeniDugum;
+            yeniDugum.sonraki = ilk;
+            yeniDugum.onceki = son;
+            son.sonraki = yeniDugum;
+        }
+        ilk = yeniDugum;
+    }
+
+    public void sonaEkle(int deger) {
+        Dugum yeniDugum = new Dugum(deger);
+        yeniDugum.onceki = null;
+        yeniDugum.sonraki = null;
+        if (ilk == null) {
+            ilk = yeniDugum;
+            son = yeniDugum;
+        } else {
+            son.sonraki = yeniDugum;
+            yeniDugum.onceki = son;
+            yeniDugum.onceki = son;
+            yeniDugum.sonraki = ilk;
+            ilk.onceki = yeniDugum;
+        }
+        son = yeniDugum;
+    }
+
+    public void sonrakiEkle(Dugum oncekiDugum, int deger) {
+        Dugum yeniDugum = new Dugum(deger);
+        if (oncekiDugum == null) {
+            System.out.println("onceki eleman null olamaz");
+            return;
+        }
+        if (oncekiDugum.sonraki == ilk) {
+            oncekiDugum.sonraki = yeniDugum;
+            yeniDugum.onceki = oncekiDugum;
+            yeniDugum.sonraki = ilk;
+        } else {
+            yeniDugum.sonraki = oncekiDugum.sonraki;
+            oncekiDugum.sonraki.onceki = yeniDugum;
+            oncekiDugum.sonraki = yeniDugum;
+            yeniDugum.onceki = oncekiDugum;
+
+        }
+    }
+
+    public void oncekiEkle(Dugum sonrakiDugum, int deger) {
+        if (sonrakiDugum == null) {
+            System.out.println("sonraki eleman null olamaz");
+            return;
+        }
+        Dugum yeniDugum = new Dugum(deger);
+        if (sonrakiDugum.onceki == son) {
+            sonrakiDugum.onceki = yeniDugum;
+            yeniDugum.onceki = son;
+            yeniDugum.sonraki = sonrakiDugum;
+            son.sonraki = yeniDugum;
+            ilk = yeniDugum;
+        } else {
+            yeniDugum.onceki = sonrakiDugum.onceki;
+            sonrakiDugum.onceki = yeniDugum;
+            yeniDugum.sonraki = sonrakiDugum;
+            yeniDugum.onceki.sonraki = yeniDugum;
+        }
+    }
+
+    public void sondanSilme() {
+        Dugum mevcutDugum = son;
+        if (ilk == null) {
+            System.out.println("liste bos");
+        }
+        ilk.onceki = mevcutDugum.onceki;
+        mevcutDugum.onceki.sonraki = ilk;
+        son = son.onceki;
+
+    }
+
+    public void bastanSil() {
+        Dugum mevcutDugum = ilk;
+        if (ilk == null) {
+            System.out.println("liste bos");
+        }
+        son.sonraki = mevcutDugum.sonraki;
+        mevcutDugum.sonraki.onceki = son;
+
+        ilk = ilk.sonraki;
+    }
+
+    public void istenilenElemaniSilme(int silinecek) {
+        Dugum mevcutDugum = ilk;
+        if (ilk == null) {
+            System.out.println("dugum bos");
+            return;
+        } else {
+            do {
+                if (mevcutDugum.deger == silinecek) {
+                    if (mevcutDugum == ilk) {
+                        son.sonraki = mevcutDugum.sonraki;
+                        mevcutDugum.sonraki.onceki = son;
+                        ilk = ilk.sonraki;
+                        return;
+                    } else if (mevcutDugum == son) {
+                        ilk.onceki = mevcutDugum.onceki;
+                        mevcutDugum.onceki.sonraki = ilk;
+                        son = son.onceki;
+                        return;
+                    } else {
+                        mevcutDugum.onceki.sonraki = mevcutDugum.sonraki;
+                        mevcutDugum.sonraki.onceki = mevcutDugum.onceki;
+                        return;
+
+                    }
+                }
+
+                mevcutDugum = mevcutDugum.sonraki;
+            } while (mevcutDugum != ilk);
+
+            System.out.println("silinecek eleman bulunamadi:");
+
+        }
+    }
+
+    public Dugum arama(int aranan) {
+        Dugum mevcutdugum = ilk;
+        while (ilk != son) {
+            if (aranan == mevcutdugum.deger) {
+                return mevcutdugum;
+            } else {
+                mevcutdugum = mevcutdugum.sonraki;
+            }
+        }
+        return null;
+
+    }
+
+    public void listeleme() {
+        Dugum mevcutDugum = ilk;
+        if (ilk != null) {
+            do {
+                System.out.println(+mevcutDugum.deger);
+                mevcutDugum = mevcutDugum.sonraki;
+            } while (mevcutDugum != ilk);
+        }
+    }
+}
